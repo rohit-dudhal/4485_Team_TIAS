@@ -6,6 +6,10 @@ from .models import UserImages
 from django.forms import modelformset_factory
 import requests 
 
+import urllib.request
+import urllib.parse
+
+#USER_DETAILS={}
 def register(request):
 	template_name='register.html'
 	if request.method =='POST':
@@ -135,6 +139,7 @@ def userDetailsView(request):
 		r = requests.get(url = URL, params = userDetailsDict) 
 		if len(r.json())!=0:
 			print(r.json(),'********************')
+			request.session['userdetails']=(r.json()[0])
 			print('USER FOUND')
 			return redirect('accounts:classifier')
 		else:
@@ -157,5 +162,20 @@ def userDetailsView(request):
 
 
 def classifier(request):
-
+	userdetails=request.session.get('userdetails')
+	print('classifier',userdetails)
+	resp =  sendSMS('MdOytkxZLts-jWl88wbMv3Ch0Og7HiP65DJooZWwye', '9324775077',
+    'TXTLCL',"%s %s found at Airoli recently" %(userdetails['firstname'],userdetails['lastname']))
+	print (resp)
 	return render(request,'app.html',{})
+
+ 
+def sendSMS(apikey, numbers, sender, message):
+    data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
+        'message' : message, 'sender': sender})
+    data = data.encode('utf-8')
+    request = urllib.request.Request("https://api.textlocal.in/send/?")
+    f = urllib.request.urlopen(request, data)
+    fr = f.read()
+    return(fr)
+ 
