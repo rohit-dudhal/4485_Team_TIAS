@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Classifier{% endblock %}
+{% block body %}
+    <div class="container">
+    	<div class="row">
+    		<span>
+	       <div id="camera" style="height:auto;width:auto; text-align:left;"></div>
+	    	<input type="button" value="Take a Snap and Download Picture" id="btPic" 
+	        onclick="takeSnapShot()" /> 
+	    	<p id="snapShot"></p>
+	    	</span>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <form action="/file-upload" class="dropzone" id="dropzone">
+                            <div class="dz-message needsclick">
+                                <img src="./images/upload.png" width="50vw" height="50vw"><br>
+                                <span class="note needsclick">Drop files here or click to upload</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3 mx-auto">
+                        <button id="submitBtn" type="button" class="btn btn-success">Classify</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-8 error" id="error" >
+                <p>Can't classify image. Classifier was not able to detect face and two eyes properly</p>    
+            </div>
+
+            <div class="col-sm-4" id="resultHolder">
+            </div>
+            
+            
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+Webcam.set({
+        width: 220,
+        height: 190,
+        image_format: 'jpeg',
+        jpeg_quality: 100
+    });
+    Webcam.attach('#camera');
+
+    // TAKE A SNAPSHOT.
+    takeSnapShot = function () {
+        Webcam.snap(function (data_uri) {
+            downloadImage('tag', data_uri);
+            document.getElementById('snapShot').innerHTML = 
+                '<img src="' + data_uri + '" width="220px" height="190px" />';
+        });
+    }
+
+    // DOWNLOAD THE IMAGE.
+    downloadImage = function (name, datauri) {
+        var a = document.createElement('a');
+        a.setAttribute('download',name + '.jpg');
+        a.setAttribute('href', datauri);
+        a.click();
+
+    
+    }
+</script>
+{% endblock %}

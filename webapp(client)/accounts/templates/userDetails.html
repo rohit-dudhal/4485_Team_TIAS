@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}User Details{% endblock %}
+
+
+{% block body %}
+
+    <div class="d-flex justify-content-center align-items-center login-container">
+
+        <form  method="post" class="">
+            {% csrf_token %}
+              {% bootstrap_form userDetails_form %}
+
+              {{ userImage_form.management_form }}
+
+				{% for form in userImage_form %}
+					{{ form }}<break>
+				{% endfor %}
+                <div id="camera" ></div>
+    			
+    		<p id="snapShot"></p>
+		</div>
+		{% buttons %}
+                <button type="submit" class="btn btn primary">Submit</button>
+                {% endbuttons %}
+
+        </form>
+
+    </div>
+
+
+
+
+{% endblock %}
+

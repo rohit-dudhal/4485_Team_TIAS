@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ record.firstname }}{% endblock %}
+
+
+{% block body %}
+<div style="align-items: center;">
+		<h1 style="font-size: 60px;">Details for user</h1>
+</div>
+<div class="d-flex justify-content-center align-items-center login-container">
+	
+	<ul>
+		<li><b>Name: </b>{{ record.firstname }} {{ record.lastname }}</li>
+		<li>Date of Birth: {{ record.dob }}</li>
+		<li>Place of Birth: {{ record.placeOfBirth }}</li>
+		<li>Gender: {{ record.gender }}</li>
+		<li>Address: {{ record.address }}</li>
+		<li>City: {{ record.city }}</li>
+		<li>Country: {{ record.country }}</li>
+		<li>Zipcode: {{ record.zipcode }}</li>
+		<li>Email: {{ record.email }}</li>
+		<li>Aadhar: {{ record.aadhar }}</li>
+		<li>PAN No: {{ record.pancard }}</li>
+		<li>Passport: {{ record.passport }}</li>
+		<li>Driving License: {{ record.dlicense }}</li>
+		<li>Height: {{ record.height }}</li>
+		<li>Unique Feature: {{ record.unique_feature }}</li>
+		<li>Criminal Records: {{ record.prev_records }}</li>
+	</ul>
+</div>
+{% for image in images %}
+{{ image.images.url}}<br>
+{% endfor %}
+{% endblock %}

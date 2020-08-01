@@ -1,0 +1,46 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+    <title>{% block title %}TIAS Login Page{% endblock %}</title>
+
+    
+
+</head>
+
+<body>
+    <header class="text-gray-700 body-font">
+      <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+            
+          </svg>
+          <span class="ml-3 text-xl">T.I.A.S.</span>
+        </a>
+        <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400   flex flex-wrap items-center text-base justify-center">
+          {% if user.is_authenticated %}
+          <a class="mr-5 hover:text-gray-900" href="{% url 'accounts:userdetails' %}">Add New Record</a>
+          <a class="mr-5 hover:text-gray-900" href="{% url 'operations:search' %}">Search Records</a>
+          <a class="mr-5 hover:text-gray-900" href="{% url 'accounts:logout' %}">Logout</a>
+          {% else %}
+          <a class="mr-5 hover:text-gray-900" href="{% url 'accounts:register' %}">Register</a>
+          <a class="mr-5 hover:text-gray-900" href="{% url 'accounts:login' %}">Login</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+    {% block body %}
+    
+    {% endblock %}
+</body>
+
+</html>

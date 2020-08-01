@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+
+{% block body %}
+{% if user.is_authenticated %}
+
+<main role="main" class="container">
+
+      <h3>Filter Records</h3>
+      <form method="GET" action="#">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="name_contains" placeholder="Name contains..." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12">
+                <div class="input-group">
+                    <input class="form-control py-2 border-right-0 border" type="search" name="city_contains" placeholder="City contains.." />
+                    <span class="input-group-append">
+                        <div class="input-group-text bg-transparent">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </span>
+                </div>
+            </div>        
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+	<hr />
+    <div class="row">
+        <ul>
+          {% for record in records %}
+            <li>
+              {{ record.firstname }} {{ record.lastname }}, {{ record.age }}
+              <span>City: {{ record.city }}</span>
+              
+              <span>Date of Birth: {{ record.dob }}</span>
+              <a href="{% url 'operations:details' record.userID %}"> More Details</a>
+            </li>
+            <hr />
+          {% endfor %}
+        </ul>
+      </div>
+</main>
+
+{% else %}
+<h1> Log In first </h1>
+{% endif %}
+
+{% endblock %}
