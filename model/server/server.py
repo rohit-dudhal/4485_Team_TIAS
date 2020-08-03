@@ -36,9 +36,6 @@ def classify_image():
     data['imgw'] = base64.b64encode(imgw)
 
 
-    cv2.imshow('image', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
     
     response = jsonify(util.classify_image("b," + str(data['imgw'])[2:]))
   
