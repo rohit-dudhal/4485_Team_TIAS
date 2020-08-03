@@ -1,0 +1,50 @@
+System check identified no issues (0 silenced).
+August 02, 2020 - 23:37:57
+Django version 2.2, using settings 'tias_client.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+[02/Aug/2020 23:38:02] "GET /login HTTP/1.1" 200 2933
+*************User Logged IN************
+[02/Aug/2020 23:38:07] "POST /login HTTP/1.1" 302 0
+[02/Aug/2020 23:38:07] "GET /userdetails HTTP/1.1" 200 3613
+[02/Aug/2020 23:36:49] "GET /userdetails HTTP/1.1" 200 3591
+[02/Aug/2020 23:36:52] "GET /login HTTP/1.1" 200 2911
+[02/Aug/2020 23:36:55] "POST /login HTTP/1.1" 302 0
+[02/Aug/2020 23:36:55] "GET /login HTTP/1.1" 200 2971
+[02/Aug/2020 23:37:02] "POST /login HTTP/1.1" 302 0
+[02/Aug/2020 23:37:02] "GET /login HTTP/1.1" 200 2971
+*************User Logged IN************
+[02/Aug/2020 23:37:10] "POST /login HTTP/1.1" 302 0
+Not Found: /
+[02/Aug/2020 23:37:10] "GET / HTTP/1.1" 404 3211
+[02/Aug/2020 22:21:14] "GET / HTTP/1.1" 404 3211
+[02/Aug/2020 22:21:18] "GET /userdetails HTTP/1.1" 200 3644
+[02/Aug/2020 22:21:18] "GET /static/dropzone.min.css HTTP/1.1" 304 0
+[02/Aug/2020 22:21:18] "GET /static/app.js HTTP/1.1" 304 0
+[02/Aug/2020 22:21:18] "GET /static/dropzone.min.js HTTP/1.1" 304 0
+[02/Aug/2020 22:21:18] "GET /static/app.css HTTP/1.1" 304 0
+[02/Aug/2020 22:21:51] "GET /userdetails HTTP/1.1" 200 3638
+[02/Aug/2020 22:23:19] "GET /userdetails HTTP/1.1" 200 3578
+[02/Aug/2020 22:27:23] "GET /userdetails HTTP/1.1" 200 3494
+[02/Aug/2020 22:27:43] "GET /userdetails HTTP/1.1" 200 3551
+[02/Aug/2020 22:27:57] "GET /userdetails HTTP/1.1" 200 3551
+[02/Aug/2020 22:28:01] "GET /userdetails HTTP/1.1" 200 3544
+[02/Aug/2020 22:28:16] "GET /userdetails HTTP/1.1" 200 3544
+[02/Aug/2020 22:28:21] "GET /userdetails HTTP/1.1" 200 3566
+[02/Aug/2020 22:29:42] "GET /userdetails HTTP/1.1" 200 3553
+[02/Aug/2020 22:32:42] "GET /userdetails HTTP/1.1" 200 3591
+[{'userID': 'a1ce84cd-e6ce-4dae-8a30-5241fa785439', 'firstname': 'Raj', 'lastname': 'Parab', 'dob': '2020-07-24', 'placeOfBirth': 'mumbai', 'gender': 'male', 'address': 'H-4, Sector-4, Airoli', 'city': 'Navi Mumbai', 'country': 'India', 'zipcode': '400708', 'email': 'raj.parab99@yahoo.com', 'aadhar': '123432543141', 'pancard': 'csnrr2421l', 'passport': '323232eerf', 'dlicense': 'mh20174333', 'height': 170, 'unique_feature': 'No', 'prev_records': 'No', 'parentUser': 8}] ********************
+USER FOUND
+[02/Aug/2020 22:32:56] "POST /userdetails HTTP/1.1" 302 0
+[02/Aug/2020 22:32:56] "GET /classifier HTTP/1.1" 200 4295
+Not Found: /images/upload.png
+[02/Aug/2020 22:32:56] "GET /images/upload.png HTTP/1.1" 404 3280
+Not Found: /
+[02/Aug/2020 22:33:03] "POST / HTTP/1.1" 404 3212
+classifier {'userID': 'a1ce84cd-e6ce-4dae-8a30-5241fa785439', 'firstname': 'Raj', 'lastname': 'Parab', 'dob': '2020-07-24', 'placeOfBirth': 'mumbai', 'gender': 'male', 'address': 'H-4, Sector-4, Airoli', 'city': 'Navi Mumbai', 'country': 'India', 'zipcode': '400708', 'email': 'raj.parab99@yahoo.com', 'aadhar': '123432543141', 'pancard': 'csnrr2421l', 'passport': '323232eerf', 'dlicense': 'mh20174333', 'height': 170, 'unique_feature': 'No', 'prev_records': 'No', 'parentUser': 8}
+b'{"errors":[{"code":192,"message":"Messages can only be sent between 9am to 9pm as restricted by TRAI NCCP regulation"}],"status":"failure"}'
+http://tiasauthority.pythonanywhere.com/records/api/addalert?criminalID=a1ce84cd-e6ce-4dae-8a30-5241fa785439&criminalName=Raj&lastLocation=airoli&status=spotted
+[02/Aug/2020 22:33:05] "GET /success HTTP/1.1" 200 2177
+[02/Aug/2020 22:33:31] "GET /login HTTP/1.1" 200 2873
+[02/Aug/2020 22:34:38] "GET /classifier HTTP/1.1" 200 4318
+Not Found: /images/upload.png

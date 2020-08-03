@@ -28,26 +28,6 @@ class UserDetailsForm(forms.Form):
 	# Gender
 	gender = forms.CharField(max_length=7,error_messages=ERROR_DICT,required=False)
 
-	# Contact Details
-	address = forms.CharField(max_length=255,error_messages=ERROR_DICT,required=False)
-	city = forms.CharField(max_length=72,error_messages=ERROR_DICT,required=False)
-	country = forms.CharField(max_length=72,error_messages=ERROR_DICT,required=False)
-	zipcode = forms.CharField(max_length=10,error_messages=ERROR_DICT,required=False)
-	email = forms.EmailField(error_messages=ERROR_DICT,required=False)
-
-	# Identification Details
-	aadhar = forms.CharField(max_length=12,error_messages=ERROR_DICT,required=False)
-	pancard = forms.CharField(max_length=10,error_messages=ERROR_DICT,required=False)
-	passport = forms.CharField(max_length=14,error_messages=ERROR_DICT,required=False)
-	dlicense =forms.CharField(max_length=14,error_messages=ERROR_DICT,required=False)
-
-	# Physical details
-	height = forms.CharField(max_length=3,error_messages=ERROR_DICT,required=False)
-	unique_feature = forms.CharField(max_length=255,error_messages=ERROR_DICT,required=False)
-
-	# Previous records
-	prev_records = forms.CharField(max_length=1000,required=False)
-
 	
 #class UserDetails(forms.Form):
 

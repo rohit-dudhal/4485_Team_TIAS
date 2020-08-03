@@ -9,5 +9,6 @@ urlpatterns=[
 			path('logout', views.logout, name='logout'),
 			path('userdetails', views.userDetailsView, name='userdetails'),
 			path('classifier', views.classifier, name='classifier'),
+			path('success', views.success, name='success'),
 
 ]

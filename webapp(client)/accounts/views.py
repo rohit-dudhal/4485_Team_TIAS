@@ -8,7 +8,10 @@ import requests
 
 import urllib.request
 import urllib.parse
+import logging
+import datetime
 
+logger = logging.getLogger('details.log')
 #USER_DETAILS={}
 def register(request):
 	template_name='register.html'
@@ -33,12 +36,15 @@ def register(request):
 					user = User.objects.create_user(username=username,email=email,
 													password=password)
 					user.save()
-					print('*************User Created************')
+					logger.info(datetime.datetime.now(),': *************User Created************')
+					
 					return redirect('accounts:userdetails')
 
 			else:
+				logger.error(datetime.datetime.now(),": Password not matching!!")
 				messages.info(request,"Password not matching!!")
 				return redirect('accounts:register')
+
 
 
 	else: 
@@ -65,7 +71,8 @@ def login(request):
 			if user is not None:
 				auth.login(request,user)
 				print('*************User Logged IN************')
-				return redirect('/')
+				logger.info(datetime.datetime.now(),': *************User Created************')
+				return redirect('accounts:userdetails')
 
 			else:
 				messages.info(request,"Given Credentials not matching!!")
@@ -100,18 +107,7 @@ def userDetailsView(request):
 			dob=userDetails_form.cleaned_data['dob']
 			placeOfBirth=userDetails_form.cleaned_data['placeOfBirth']
 			gender=userDetails_form.cleaned_data['gender']
-			address=userDetails_form.cleaned_data['address']
-			city=userDetails_form.cleaned_data['city']
-			country=userDetails_form.cleaned_data['country']
-			zipcode=userDetails_form.cleaned_data['zipcode']
-			email=userDetails_form.cleaned_data['email']
-			aadhar=userDetails_form.cleaned_data['aadhar']
-			pancard=userDetails_form.cleaned_data['pancard']
-			passport=userDetails_form.cleaned_data['passport']
-			dlicense =userDetails_form.cleaned_data['dlicense']
-			height =userDetails_form.cleaned_data['height']
-			unique_feature =userDetails_form.cleaned_data['unique_feature']
-			prev_records  =userDetails_form.cleaned_data['prev_records']
+			
 
 		#convert to json
 			userDetailsDict={
@@ -120,18 +116,7 @@ def userDetailsView(request):
 				'dob':dob,
 				'placeOfBirth':placeOfBirth,
 				'gender':gender,
-				'address':address,
-				'city':city,
-				'country':country,
-				'zipcode':zipcode,
-				'email':email,
-				'aadhar':aadhar,
-				'pancard':pancard,
-				'passport':passport,
-				'dlicense':dlicense,
-				'height':height,
-				'unique_feature':unique_feature,
-				'prev_records':prev_records,
+				
 				}
 
 		URL='http://tiasauthority.pythonanywhere.com/records/api/verify/'
@@ -162,20 +147,82 @@ def userDetailsView(request):
 
 
 def classifier(request):
-	userdetails=request.session.get('userdetails')
-	print('classifier',userdetails)
-	resp =  sendSMS('MdOytkxZLts-jWl88wbMv3Ch0Og7HiP65DJooZWwye', '9324775077',
-    'TXTLCL',"%s %s found at Airoli recently" %(userdetails['firstname'],userdetails['lastname']))
-	print (resp)
+
 	return render(request,'app.html',{})
 
+def success(request):
+	userdetails=request.session.get('userdetails')
+	print('classifier',userdetails)
+	details= detail(userdetails['firstname'],21,userdetails['gender'],'Bank Fraud',"Airoli")
+	m="Team Tias Security Alert \n\n Criminal Found! \n\n"
+	for label, value in details.items():
+		m=m + label + ": " + value + "\n"
+	resp =sendSMS('MdOytkxZLts-jWl88wbMv3Ch0Og7HiP65DJooZWwye', '9769542490',
+	'TXTLCL',m)
+	print (resp)
+	#details= detail(userdetails['firstname'],21,userdetails['gender'],'Bank Fraud',"Airoli")
+
+	email_alert('Criminal Details by Team Tias',details,'rparab190@gmail.com' )
+
+	URL='http://tiasauthority.pythonanywhere.com/records/api/addalert?criminalID=%s&criminalName=%s&lastLocation=airoli&status=spotted' %(userdetails['userID'],userdetails['firstname'])
+	print(URL)
+	r = requests.get(url = URL)
+	return render(request,'success.html',{})
+
  
+import urllib.request
+import urllib.parse
+ 
+
+
+
 def sendSMS(apikey, numbers, sender, message):
-    data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
-        'message' : message, 'sender': sender})
-    data = data.encode('utf-8')
-    request = urllib.request.Request("https://api.textlocal.in/send/?")
-    f = urllib.request.urlopen(request, data)
-    fr = f.read()
-    return(fr)
- 
+	data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
+	    'message' : message, 'sender': sender})
+	data = data.encode('utf-8')
+	request = urllib.request.Request("https://api.textlocal.in/send/?")
+	f = urllib.request.urlopen(request, data)
+	fr = f.read()
+	return(fr)
+
+
+
+import smtplib
+import imghdr
+import os
+from email.message import EmailMessage
+
+def detail(name1,age,gender,crime,location):
+	d=dict()
+	d["Name"]=str(name1)
+	d["Age"]=str(age)
+	d["Gender"]=str(gender)
+	d["Crime"]=str(crime)
+	d["Location"]="Recently found at " + str(location)
+	return d
+
+def email_alert(subject , body, to):
+	m="Team Tias Security Alert \n\nCriminal Found\n\n"
+	msg = EmailMessage()
+	for i,j in body.items():
+	    m = m + i + ": " + j +"\n"
+	msg.set_content(str(m))
+	msg['subject'] = subject
+	msg['to'] = to
+
+
+	user = "tiasbvcoe@gmail.com"
+	msg['from'] = user
+	password = "jcmdvbjplgpflwoe"
+
+
+	server = smtplib.SMTP("smtp.gmail.com" , 587)
+	server.starttls()
+	server.login(user, password)
+	server.send_message(msg)
+	server.sendmail(user, to, m)
+
+	server.quit()
+
+
+    

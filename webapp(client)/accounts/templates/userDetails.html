@@ -6,8 +6,7 @@
 
 {% block body %}
 
-    <div class="d-flex justify-content-center align-items-center login-container">
-
+    <div class="container px-5 py-24 mx-auto flex flex-wrap flex-col">
         <form  method="post" class="">
             {% csrf_token %}
               {% bootstrap_form userDetails_form %}
@@ -17,13 +16,11 @@
 				{% for form in userImage_form %}
 					{{ form }}<break>
 				{% endfor %}
-                <div id="camera" ></div>
-    			
-    		<p id="snapShot"></p>
-		</div>
+                
+		
 		{% buttons %}
-                <button type="submit" class="btn btn primary">Submit</button>
-                {% endbuttons %}
+            <button type="submit" class="btn btn primary" style="background-color: dodgerblue;">Submit</button>
+        {% endbuttons %}
 
         </form>
 
